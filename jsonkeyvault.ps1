@@ -11,6 +11,32 @@ param(
 	[String] $userObjectId
 )
 
+$connectionName = "AzureRunAsConnection"
+	try
+	{
+		$servicePrincipalConnection = Get-AutomationConnection -Name $connectionName         
+
+		Write-Verbose "Logging in to Azure..." -Verbose
+
+		Add-AzureRmAccount `
+			-ServicePrincipal `
+			-TenantId $servicePrincipalConnection.TenantId `
+			-ApplicationId $servicePrincipalConnection.ApplicationId `
+			-CertificateThumbprint $servicePrincipalConnection.CertificateThumbprint | Out-Null
+	}
+	catch {
+		if (!$servicePrincipalConnection)
+		{
+			$ErrorMessage = "Connection $connectionName not found."
+			throw $ErrorMessage
+		} else{
+			Write-Error -Message $_.Exception
+			throw $_.Exception
+		}
+	}
+
+
+
 $keyVault=Get-AzureRMKeyVault -VaultName $keyVaultName -ErrorVariable notPresent -ErrorAction SilentlyContinue
 
 if (!$keyVault)
