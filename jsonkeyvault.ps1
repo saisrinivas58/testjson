@@ -58,13 +58,10 @@ else
 Write-Output " keyVault already presented"
 
 }
-[$paramObj='https://raw.githubusercontent.com/saisrinivas58/testjson/master/keyvaultdata.json' 
-Invoke-WebRequest $request | ConvertFrom-Json
-Write-Output $paramObj
+$uri="https://raw.githubusercontent.com/saisrinivas58/testjson/master/keyvaultdata.json"
+$paramObj=Invoke-RestMethod -Uri $uri -Method Get
 [String[]]$secretName= $paramObj.psobject.properties.name
- Write-Output $secretName
  [String[]]$secretValue= $paramObj.psobject.properties.value
- Write-Output $secretValue
  
 for($($i=0;$j=0);$i -le ($secretName.length - 1) -and $j -le ($secretValue.length - 1);$($i++;$j++))
  {
