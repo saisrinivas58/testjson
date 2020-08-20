@@ -32,7 +32,7 @@ else
 Write-Output " keyVault already presented"
 
 }
-[object]$paramObj=Get-Content "/home/sai/keyvaultdata.json" | ConvertFrom-Json
+[object]$paramObj=Get-Content "https://raw.githubusercontent.com/saisrinivas58/testjson/master/keyvaultdata.json" | ConvertFrom-Json
 #Write-Output $paramObj
 [String[]]$secretName= $paramObj.psobject.properties.name
  Write-Output $secretName
