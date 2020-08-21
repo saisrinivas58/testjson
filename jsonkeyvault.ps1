@@ -54,11 +54,13 @@ Set-AzureRmKeyVaultAccessPolicy `
         -PermissionsToKeys decrypt,encrypt,unwrapKey,wrapKey,verify,sign,get,list,update,create,import,delete,backup,restore,recover,purge `
         -PermissionsToSecrets list,get,set,delete,recover,backup,restore `
 		-ServicePrincipalName "902f4cd2-7300-42d0-bc30-7918dce59bf8"
-Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -BypassObjectIdValidation -ResourceGroupName $resourceGroupName -ObjectId $userObjectId  `
-  -PermissionsToCertificates list,get,create,import,update,managecontacts,getissuers,listissuers,setissuers,deleteissuers,manageissuers,recover,purge,backup,restore `
-  -PermissionsToKeys decrypt,encrypt,unwrapKey,wrapKey,verify,sign,get,list,update,create,import,delete,backup,restore,recover,purge `
-  -PermissionsToSecrets list,get,set,delete,recover,backup,restore
- }
+Set-AzureRmKeyVaultAccessPolicy `
+        -VaultName $keyVaultName -BypassObjectIdValidation -ResourceGroupName $resourceGroupName `
+        -ObjectId $userObjectId  `
+        -PermissionsToCertificates list,get,create,import,update,managecontacts,getissuers,listissuers,setissuers,deleteissuers,manageissuers,recover,purge,backup,restore `
+        -PermissionsToKeys decrypt,encrypt,unwrapKey,wrapKey,verify,sign,get,list,update,create,import,delete,backup,restore,recover,purge `
+        -PermissionsToSecrets list,get,set,delete,recover,backup,restore
+   }
 else 
 {
 Write-Output " keyVault already presented"
