@@ -47,14 +47,10 @@ New-AzureRmKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupNa
 Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForDeployment
 Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForTemplateDeployment
 Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForDiskEncryption
-Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -ObjectId $userObjectId `
+Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -BypassObjectIdValidation -ResourceGroupName $resourceGroupName -ObjectId $userObjectId `
    -PermissionsToCertificates list,get,create,import,update,managecontacts,getissuers,listissuers,setissuers,deleteissuers,manageissuers,recover,purge,backup,restore `
    -PermissionsToKeys decrypt,encrypt,unwrapKey,wrapKey,verify,sign,get,list,update,create,import,delete,backup,restore,recover,purge `
    -PermissionsToSecrets list,get,set,delete,recover,backup,restore
-Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -BypassObjectIdValidation -ResourceGroupName $resourceGroupName -ObjectId $userObjectId  `
-  -PermissionsToCertificates list,get,create,import,update,managecontacts,getissuers,listissuers,setissuers,deleteissuers,manageissuers,recover,purge,backup,restore `
-  -PermissionsToKeys decrypt,encrypt,unwrapKey,wrapKey,verify,sign,get,list,update,create,import,delete,backup,restore,recover,purge `
-  -PermissionsToSecrets list,get,set,delete,recover,backup,restore
  }
 else 
 {
