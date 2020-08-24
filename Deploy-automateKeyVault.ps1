@@ -73,6 +73,24 @@ $paramObj=Invoke-RestMethod -Uri $uri -Method Get
  
 for($($i=0;$j=0);$i -le ($secretName.length - 1) -and $j -le ($secretValue.length - 1);$($i++;$j++))
  {
- Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name $secretName[$i] `
+ $secretName_Exists=(Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name $secretName[$i]).Name
+  $secretValue_Exists=(Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name $secretName[$i]).SecretValueText
+       if(!$secretName_Exists)
+		      {
+			  
+		          Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name $secretName[$i] `
                              -SecretValue (ConvertTo-SecureString -String $secretValue[$j] -AsPlainText -Force)
+	           Write-Output "Secret created sucussfulyy"
+			   }
+	       elseif($secretValue_Exists -ne $secretValue[$j])
+	            { 
+				 Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name $secretName[$i] `
+                             -SecretValue (ConvertTo-SecureString -String $secretValue[$j] -AsPlainText -Force)
+	                Write-Output "SecretValue updated"
+
+                 }  
+				 
+	      else{
+                      Write-Output "secretName already exists"
+                }
 }
